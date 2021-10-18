@@ -26,18 +26,21 @@ export class LiveElement extends LitElement {
     // view.setHref(this.liveSocket.getHref())
     // view.join()
     this.liveSocket.socket.connect();
-    let view = this.liveSocket.newRootView(this);
-    view.setHref(this.liveSocket.getHref())
-    view.join();
+    this.view = this.liveSocket.newRootView(this);
+    this.view.setHref(this.liveSocket.getHref())
+    this.view.join();
   }
 
   constructor() {
     super();
     this.liveSocket = new LiveSocket("ws://localhost:4000/live", Socket, {})
     this.liveSocket.enableDebug();
-    // this.liveSocket.connect();
-    this.title = 'Hey there';
-    this.counter = 5;
+    this.addEventListener("click", (event) => {
+      const {target} = event;
+      let phxEvent = target && target.getAttribute("phx-click")
+      if (!phxEvent) { return }
+      this.view.pushEvent("click", this, this, phxEvent, {});
+    }, true);
   }
 
   __increment() {
