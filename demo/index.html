@@ -11,19 +11,11 @@
 <body>
   <div id="demo"></div>
 
+  <live-element id="live_element" module="TodoListDemoWeb.TodosLive.TodoList" url="ws://localhost:4000/live_element"></live-element>
+  <live-element id="other_view" module="TodoListDemoWeb.OtherView" url="ws://localhost:4000/live_element"></live-element>
   <script type="module">
     import { html, render } from 'lit';
     import '../live-element.js';
-
-    const title = 'Hello owc World!';
-    render(
-      html`
-        <live-element id="live_element" .title=${title}>
-          some light-dom
-        </live-element>
-      `,
-      document.querySelector('#demo')
-    );
   </script>
 </body>
 </html>
